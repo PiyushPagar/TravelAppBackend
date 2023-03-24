@@ -112,12 +112,12 @@ public class UserController {
 		userRepository.save(user);
 		return ResponseEntity.ok(new StatusMessageResponseDto(HttpStatus.OK.value(), "User registered successfully!"));
 	}
-
-	@PostMapping(value="/driversignup", consumes = {"multipart/mixed"})
-	public ResponseEntity<?> registerDriverUser(@Valid @RequestBody SignupDriverRequest signUpDriverRequest,
-			@RequestParam("file") MultipartFile file) throws IOException {
-		String fileName = uploadImage(path,file);
-		String filePathStr="C://lugguges" + fileName;
+	
+	
+	
+	
+	@PostMapping(value="/driversignup")
+	public ResponseEntity<?> registerDriverUser(@Valid @RequestBody SignupDriverRequest signUpDriverRequest) throws IOException {
 		try {		
 			if (userRepository.existsByEmail(signUpDriverRequest.getEmail())) {
 				return ResponseEntity.badRequest().body(new StatusMessageResponseDto(HttpStatus.BAD_REQUEST.value(),
@@ -125,10 +125,15 @@ public class UserController {
 			}
 			User user = new User(signUpDriverRequest.getEmail(), encoder.encode(signUpDriverRequest.getPassword()),
 					signUpDriverRequest.getName(), signUpDriverRequest.getMobileNo());
-			Optional<Role> userRole = roleRepository.findByName(ERole.ROLE_USER);
+			Optional<Role> userRole = roleRepository.findByName(ERole.ROLE_DRIVER);
 			user.setRole(userRole.get());
-			Long id = userRepository.save(user).getId();
-			DriverDetails driverDetails = new DriverDetails(id, fileName, filePathStr);
+			Long userid = userRepository.save(user).getId();
+			DriverDetails driverDetails = new DriverDetails();
+			driverDetails.setUserId(userid);
+			driverDetails.setLiencesUrl("/liences/details.png");
+			driverDetails.setLiencesName("details.png");
+			driverDetails.setVehicalName(signUpDriverRequest.getVehicalName());
+			driverDetails.setVehicalNo(signUpDriverRequest.getVehicalNo());
 			driverDetailsRepository.save(driverDetails);
 			return ResponseEntity
 					.ok(new StatusMessageResponseDto(HttpStatus.OK.value(), "Driver registered successfully!"));
@@ -139,6 +144,33 @@ public class UserController {
 		return ResponseEntity
 				.ok(new StatusMessageResponseDto(HttpStatus.OK.value(), "Driver registered successfully!"));
 	}
+
+//	@PostMapping(value="/driversignup", consumes = {"multipart/mixed"})
+//	public ResponseEntity<?> registerDriverUser(@Valid @RequestBody SignupDriverRequest signUpDriverRequest,
+//			@RequestParam("file") MultipartFile file) throws IOException {
+//		String fileName = uploadImage(path,file);
+//		String filePathStr="C://lugguges" + fileName;
+//		try {		
+//			if (userRepository.existsByEmail(signUpDriverRequest.getEmail())) {
+//				return ResponseEntity.badRequest().body(new StatusMessageResponseDto(HttpStatus.BAD_REQUEST.value(),
+//						"Error: Email is already in use!"));
+//			}
+//			User user = new User(signUpDriverRequest.getEmail(), encoder.encode(signUpDriverRequest.getPassword()),
+//					signUpDriverRequest.getName(), signUpDriverRequest.getMobileNo());
+//			Optional<Role> userRole = roleRepository.findByName(ERole.ROLE_USER);
+//			user.setRole(userRole.get());
+//			Long id = userRepository.save(user).getId();
+//			DriverDetails driverDetails = new DriverDetails(id, fileName, filePathStr);
+//			driverDetailsRepository.save(driverDetails);
+//			return ResponseEntity
+//					.ok(new StatusMessageResponseDto(HttpStatus.OK.value(), "Driver registered successfully!"));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			ResponseEntity.ok(new StatusMessageResponseDto(HttpStatus.FAILED_DEPENDENCY.value(), "Not Register!"));
+//		}
+//		return ResponseEntity
+//				.ok(new StatusMessageResponseDto(HttpStatus.OK.value(), "Driver registered successfully!"));
+//	}
 
 	@PostMapping("/signout")
 	public ResponseEntity<?> logoutUser() {

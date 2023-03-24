@@ -17,23 +17,22 @@ public class DriverDetails {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	public Long id;
 	
-	@OneToOne(targetEntity = User.class)
-	@JoinColumn(name = "user_id")
-	private Long userId;
+	@Column(name = "user_id")
+	public Long userId;
 
 	@Column(name = "LiencesUrl")
-	private String liencesUrl;
+	public String liencesUrl;
 	
 	@Column(name = "LiencesName")
-	private String liencesName;
+	public String liencesName;
 	
 	@Column(name = "VehicalName")
-	private String vehicalName;
+	public String vehicalName;
 	
 	@Column(name = "VehicalNumber")
-	private String vehicalNo;
+	public String vehicalNo;
 
 	
 
@@ -79,6 +78,13 @@ public class DriverDetails {
 
 
 
+	public DriverDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
@@ -109,10 +115,15 @@ public class DriverDetails {
 
 
 
-	public DriverDetails( Long userId, String liencesName,String liencesUrl) {
+
+
+
+	public DriverDetails( Long userId, String liencesName,String liencesUrl,String vehicalName,	String vehicalNo) {
 		this.userId = userId;
 		this.liencesName=liencesName;
 		this.liencesUrl = liencesUrl;
+		this.vehicalName=vehicalName;
+		this.vehicalNo =vehicalNo;
 	}
 	
 	

@@ -13,7 +13,7 @@ public class SignupDriverRequest {
     @Size(max = 50)
     private String email;
     
-    @NotBlank
+    
     @Size(min = 6, max = 40)
     private String password;
   
@@ -22,7 +22,27 @@ public class SignupDriverRequest {
 
   	private String mobileNo;
 
+	private String vehicalName;
+	
+	private String vehicalNo;
+
  
+	public String getVehicalName() {
+		return vehicalName;
+	}
+
+	public void setVehicalName(String vehicalName) {
+		this.vehicalName = vehicalName;
+	}
+
+	public String getVehicalNo() {
+		return vehicalNo;
+	}
+
+	public void setVehicalNo(String vehicalNo) {
+		this.vehicalNo = vehicalNo;
+	}
+	
     public String getEmail() {
         return email;
     }
