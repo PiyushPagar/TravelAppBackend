@@ -1,5 +1,7 @@
 package com.example.LuggagueTransformation.models;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +21,18 @@ public class TripDetails {
 	@Column(name = "user_id")
 	private Long userId;
 	
-	@Column(name = "tripTime")
-	private String tripTime;
+
 	
 	
+	public TripDetails() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Column(name = "tripStartTime")
-	private String tripStartTime;
+	private Date tripStartTime;
 	@Column(name = "tripEndTime")
-	private String tripEndTime;
+	private Date tripEndTime;
 	
 	
 	@Column(name = "tripStartFrom")
@@ -47,21 +53,48 @@ public class TripDetails {
 	@Column(name = "tripPrice")
 	private String tripPrice;
 	
-	
-	public String getTripStartTime() {
+	@Column(name = "tripStatus")
+	private String tripStatus;
+
+
+	public String getTripStatus() {
+		return tripStatus;
+	}
+
+	public void setTripStatus(String tripStatus) {
+		this.tripStatus = tripStatus;
+	}
+
+	public Date getTripStartTime() {
 		return tripStartTime;
 	}
 
-	public void setTripStartTime(String tripStartTime) {
+	public void setTripStartTime(Date tripStartTime) {
 		this.tripStartTime = tripStartTime;
 	}
 
-	public String getTripEndTime() {
+	public Date getTripEndTime() {
 		return tripEndTime;
 	}
 
-	public void setTripEndTime(String tripEndTime) {
+	public void setTripEndTime(Date tripEndTime) {
 		this.tripEndTime = tripEndTime;
+	}
+
+	public TripDetails(Long id, Long userId, Date tripStartTime, Date tripEndTime,
+			String tripStartFrom, String tripEndTo, String capacity, String vehicleName, String vehicleDetails,
+			String tripPrice) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.tripStartTime = tripStartTime;
+		this.tripEndTime = tripEndTime;
+		this.tripStartFrom = tripStartFrom;
+		this.tripEndTo = tripEndTo;
+		Capacity = capacity;
+		VehicleName = vehicleName;
+		VehicleDetails = vehicleDetails;
+		this.tripPrice = tripPrice;
 	}
 
 	public String getTripStartFrom() {
@@ -112,16 +145,6 @@ public class TripDetails {
 		this.userId = userId;
 	}
 
-	public String getTripTime() {
-		return tripTime;
-	}
-
-	public void setTripTime(String tripTime) {
-		this.tripTime = tripTime;
-	}
-	
-
-	
 
 	public String getCapacity() {
 		return Capacity;

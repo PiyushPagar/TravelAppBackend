@@ -38,6 +38,11 @@ public class MessageResponse {
 		this.status = status;
 		this.result = result;
 	}
+
+	public MessageResponse(int status, String message) {
+		this.message = message;
+		this.status = status;
+	}
 	
 	
 	
